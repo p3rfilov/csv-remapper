@@ -1,0 +1,14 @@
+{
+  "source": "Output/Test_Output/Freq_Ids",
+  "target": "Output/Test_Output",
+  "lookup_mode": "Match Text (substring; case-insensitive)",
+  "mappings": [
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "Frequency ID",
+      "Target Column": "Frequency ID",
+      "In Data": "Text",
+      "Out Data": "Text"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "source": "Input/Test_Input",
+  "target": "Output/Test_Output",
+  "mappings": [
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "id",
+      "Target Column": "ID",
+      "In Data": "Text",
+      "Out Data": "Text"
+    },
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "first_name",
+      "Target Column": "Name First",
+      "In Data": "Text",
+      "Out Data": "Text"
+    },
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "last_name",
+      "Target Column": "Name Last",
+      "In Data": "Text",
+      "Out Data": "Text"
+    },
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "ip_address",
+      "Target Column": "IP Address",
+      "In Data": "Text",
+      "Out Data": "Text"
+    },
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "registration_date",
+      "Target Column": "Date DD/MM/YYYY",
+      "In Data": "Date %Y/%m/%d",
+      "Out Data": "Date %d/%m/%Y"
+    },
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "login",
+      "Target Column": "Login Frequency",
+      "In Data": "Text",
+      "Out Data": "Text"
+    },
+    {
+      "Name": "Output/Test_Output/Colours",
+      "Source Column": "registration_date",
+      "Target Column": "Alias Data",
+      "In Data": "Text",
+      "Out Data": "Text"
+    },
+    {
+      "Name": "Output/Test_Output/Freq_Ids",
+      "Source Column": "login",
+      "Target Column": "Alias Data",
+      "In Data": "Text",
+      "Out Data": "Text"
+    }
+  ]
+}
