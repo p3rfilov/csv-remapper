@@ -56,7 +56,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.dir_handler.write_settings(TEMPLATE_ROOT_DIR_K, location)
                 self.dir_handler.init_folders()
                 self.template_creator = wizards.TemplateCreator(self.dir_handler)
-            elif not new_location or not location.strip():
+            elif not new_location and not location.strip():
                 self.close()
                 self.deleteLater()
                 return
