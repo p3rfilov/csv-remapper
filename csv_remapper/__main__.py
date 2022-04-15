@@ -20,8 +20,9 @@ def parse_args(raw_args):
     return parser.parse_args(raw_args)
 
 
-def main(raw_args):
-    if len(raw_args) > 1:
+def main(raw_args=None):
+    raw_args = raw_args or sys.argv[1:]
+    if len(raw_args) > 0:
         from csv_remapper.components import cli
         args = parse_args(raw_args)
         cli.run_command(args)
@@ -31,4 +32,4 @@ def main(raw_args):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

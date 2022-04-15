@@ -5,7 +5,8 @@ import unittest
 # setup test environment
 os.environ['CSV_SETTINGS_DIR'] = os.path.join(os.path.dirname(__file__), 'app_data')
 
-from csv_remapper.components import io_handlers, remappers, datatypes
+from csv_remapper.components import io_handlers, datatypes
+from csv_remapper.components import remappers
 
 
 class TestDataRemapping(unittest.TestCase):

@@ -1,5 +1,3 @@
-
-import os
 import csv
 import json
 import datetime
@@ -149,10 +147,10 @@ class AppDirectoryHandler:
             os.makedirs(folder)
 
 
-def write_remapped_data(source_file, target_dir, remapped_data):
+def write_remapped_data(source_file, target_dir, remapped_data):  # type: (str, str, dict) -> str
     source_name = os.path.basename(source_file)
     name, ext = os.path.splitext(source_name)
     target_name = f'{name}{REMAPPED_SUFFIX}{datetime.datetime.now().strftime(DATETIME_FORMAT)}{ext}'
     target_file = os.path.join(target_dir, target_name)
-    print(f'Writing "{target_file}"')
     CsvFileHandler.write(target_file, remapped_data)
+    return target_file

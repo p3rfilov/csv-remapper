@@ -13,9 +13,12 @@ def run_command(args):  # type: (argparse.Namespace) -> None
     handler = io_handlers.AppDirectoryHandler()
     if not os.path.isdir(handler.root):
         raise Exception('Template Storage location not set. Please run the tool in GUI mode and follow instructions')
+    remapped_files = []
     for csv_file in args.files:
         data = remappers.remap_csv_file(csv_file, args.template, handler)
-        io_handlers.write_remapped_data(csv_file, args.out_dir, data)
+        new_file = io_handlers.write_remapped_data(csv_file, args.out_dir, data)
+        remapped_files.append(f'"{new_file}"')
+    print(' '.join(remapped_files))  # output results to stdout
 
 
 def _check_args(args):

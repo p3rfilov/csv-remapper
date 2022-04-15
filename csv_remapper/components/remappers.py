@@ -12,7 +12,6 @@ from csv_remapper.constants import *
 
 
 def remap_csv_file(csv_file, output_template, dir_handler):  # type: (str, str, io_handlers.AppDirectoryHandler) -> dict
-    print(f'Remapping "{csv_file}"')
     output_data = {}
     input_data = io_handlers.CsvFileHandler.read(csv_file)
     in_temp_data = {}

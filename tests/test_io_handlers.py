@@ -8,7 +8,6 @@ import uuid
 os.environ['CSV_SETTINGS_DIR'] = os.path.join(os.path.dirname(__file__), 'temp_app_data')
 
 from csv_remapper.components import io_handlers
-from csv_remapper.constants import *
 
 ROOT = os.environ['CSV_SETTINGS_DIR']
 
