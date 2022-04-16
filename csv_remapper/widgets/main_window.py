@@ -53,8 +53,8 @@ class MainWindow(QtWidgets.QMainWindow):
         if not self.dir_handler.root or new_location:
             location = dialogs.get_directory_dialog(title='Please select Template Storage location')
             if location.strip():
+                self.dir_handler = io_handlers.AppDirectoryHandler(location)
                 self.dir_handler.write_settings(TEMPLATE_ROOT_DIR_K, location)
-                self.dir_handler.init_folders()
                 self.template_creator = wizards.TemplateCreator(self.dir_handler)
             elif not new_location and not location.strip():
                 self.close()

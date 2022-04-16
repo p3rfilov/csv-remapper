@@ -8,6 +8,7 @@ APP_ICON = os.path.join(os.path.dirname(__file__), 'resources', 'Accounts-Icon.p
 APP_SETTINGS_DIRECTORY = os.environ.get(APP_DATA_ENV_VAR) or os.path.join(os.path.expanduser('~'), APP_NAME)
 SETTINGS_FILE_NAME = 'settings.json'
 APP_SETTINGS_FILE = os.path.join(APP_SETTINGS_DIRECTORY, SETTINGS_FILE_NAME)
+DEFAULT_TEMPLATE_DIRECTORY = APP_SETTINGS_DIRECTORY
 DEFAULT_BROWSE_DIR = os.path.expanduser('~')
 
 # keys

@@ -73,17 +73,19 @@ class AppDirectoryHandler:
     def init_folders(self):
         self.create_folder(APP_SETTINGS_DIRECTORY)
         if not self.root:
-            self.root = os.environ.get(APP_DATA_ENV_VAR) or self.get_settings(TEMPLATE_ROOT_DIR_K)
+            self.root = os.environ.get(APP_DATA_ENV_VAR) or self.get_settings(
+                TEMPLATE_ROOT_DIR_K, DEFAULT_TEMPLATE_DIRECTORY
+            )
         if self.root:
             for t_type in TEMPLATE_TYPES:
                 self.create_folder(os.path.join(self.root, t_type))
 
     @decorators.exception
-    def get_settings(self, key):  # type: (str) -> Any
+    def get_settings(self, key, fallback=''):  # type: (str, Any) -> Any
         if not os.path.exists(APP_SETTINGS_FILE):
             self.handler.write(APP_SETTINGS_FILE, {})
         data = self.handler.read(APP_SETTINGS_FILE)
-        return data.get(key, '')
+        return data.get(key, fallback)
 
     @decorators.exception
     def write_settings(self, key, new_data):  # type: (str, Any) -> None
