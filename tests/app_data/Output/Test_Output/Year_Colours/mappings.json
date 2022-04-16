@@ -1,5 +1,5 @@
 {
-  "source": "Output/Test_Output/Colours",
+  "source": "Output/Test_Output/Year_Colours",
   "target": "Output/Test_Output",
   "lookup_mode": "Match Text (substring; case-insensitive)",
   "mappings": [

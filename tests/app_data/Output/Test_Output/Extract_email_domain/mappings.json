@@ -1,0 +1,14 @@
+{
+  "source": "Output/Test_Output/Extract_email_domain",
+  "target": "Output/Test_Output",
+  "lookup_mode": "Regular Expression (extract value)",
+  "mappings": [
+    {
+      "Name": "Output/Test_Output",
+      "Source Column": "Alias Values",
+      "Target Column": "Email Domain",
+      "In Data": "Text",
+      "Out Data": "Text"
+    }
+  ]
+}

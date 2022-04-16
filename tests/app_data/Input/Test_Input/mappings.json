@@ -45,7 +45,7 @@
       "Out Data": "Text"
     },
     {
-      "Name": "Output/Test_Output/Colours",
+      "Name": "Output/Test_Output/Year_Colours",
       "Source Column": "registration_date",
       "Target Column": "Alias Values",
       "In Data": "Text",
@@ -54,6 +54,13 @@
     {
       "Name": "Output/Test_Output/Freq_Ids",
       "Source Column": "login",
+      "Target Column": "Alias Values",
+      "In Data": "Text",
+      "Out Data": "Text"
+    },
+    {
+      "Name": "Output/Test_Output/Extract_email_domain",
+      "Source Column": "email",
       "Target Column": "Alias Values",
       "In Data": "Text",
       "Out Data": "Text"
