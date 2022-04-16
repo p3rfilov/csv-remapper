@@ -41,7 +41,7 @@ DATETIME_FORMAT = '%Y-%m-%d_%H-%M'
 CSV_DEFAULT_DELIMETER = ','
 CSV_DEFAULT_QUOTECHAR = '"'
 
-ALIAS_FIELD_NAME = 'Alias Data'
+ALIAS_FIELD_NAME = 'Alias Values'
 ALIAS_DATA_SEPARATOR = '#'
 ALIAS_TOOLTIP_TEXT = f' TIP: Use {ALIAS_DATA_SEPARATOR} character (without spaces) to separate ' \
                      f'"{ALIAS_FIELD_NAME}" values. Save Changes after adding new values to allow input validation'

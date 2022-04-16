@@ -102,7 +102,7 @@ class AppDirectoryHandler:
             all_names += [t.lower() for t in t_names[t_type]]
         for list_item in t_names.values():
             for item in list_item:
-                all_names += [t.lower() for t in self.get_alias_data_names(str(item))]
+                all_names += [t.lower() for t in self.get_alias_value_names(str(item))]
         if name.lower() not in set(all_names):
             return True
         return False
@@ -115,7 +115,7 @@ class AppDirectoryHandler:
             templates[t_type] = sorted(dirs)
         return templates
 
-    def get_alias_data_names(self, template_name):  # type: (str) -> List[str]
+    def get_alias_value_names(self, template_name):  # type: (str) -> List[str]
         full_path = os.path.join(self.root, OUTPUT_K, template_name)
         if os.path.isdir(full_path):
             dirs = [str(d) for d in os.listdir(full_path) if '.' not in d]  # bytes to string

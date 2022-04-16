@@ -145,7 +145,7 @@ class TemplateEditor(QtWidgets.QWidget):
         self.mapping_model.load_data(in_files[MAPPINGS_K])
         output_temp_name = self.mapping_model.the_data.get(TARGET_K).split(MAPPING_SEPARATOR)[-1]
         out_files = self.dir_handler.get_template_files(output_temp_name, OUTPUT_K)
-        alias_data_names = self.dir_handler.get_alias_data_names(output_temp_name)
+        alias_data_names = self.dir_handler.get_alias_value_names(output_temp_name)
 
         self.input_template = data_editor.DataEditor(
             template_name,
@@ -201,7 +201,7 @@ class TemplateEditor(QtWidgets.QWidget):
 
     def setup_output_template_view(self, template_name):
         out_files = self.dir_handler.get_template_files(template_name, OUTPUT_K)
-        alias_data_names = self.dir_handler.get_alias_data_names(template_name)
+        alias_value_names = self.dir_handler.get_alias_value_names(template_name)
         self.output_template = data_editor.DataEditor(
             template_name,
             OUTPUT_K,
@@ -211,9 +211,9 @@ class TemplateEditor(QtWidgets.QWidget):
             alias_settings=False,
             alias_data=False
         )
-        for name in alias_data_names:
+        for name in alias_value_names:
             self._setup_alias_widget_for_output_template(template_name, name)
-        if alias_data_names:
+        if alias_value_names:
             self.on_alias_tab_changed(0)
 
         self.output_template.model.load_data(out_files[FILE_K])

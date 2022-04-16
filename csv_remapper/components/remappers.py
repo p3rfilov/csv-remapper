@@ -107,7 +107,7 @@ def remap_csv_file(csv_file, output_template, dir_handler):  # type: (str, str, 
 
 def _get_alias_data(output_template, dir_handler):
     alias_data = {}
-    alias_names = dir_handler.get_alias_data_names(output_template)
+    alias_names = dir_handler.get_alias_value_names(output_template)
     for alias in alias_names:
         alias_files = dir_handler.get_alias_files(output_template, alias)
         alias_data[alias] = {
