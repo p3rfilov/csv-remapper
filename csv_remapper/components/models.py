@@ -137,8 +137,8 @@ class CsvDataModel(QtCore.QAbstractTableModel):
                 return True
             for mapping in data.get(MAPPINGS_K, []):
                 target_names = mapping[NAME_K].split(MAPPING_SEPARATOR)
-                target_columns = mapping[TARGET_COLUMN_K]
-                if (editor_name in target_names) and (self._columns[col] in target_columns):
+                target_column = mapping[TARGET_COLUMN_K]
+                if (editor_name in target_names) and (self._columns[col] == target_column):
                     return True
         return False
 
