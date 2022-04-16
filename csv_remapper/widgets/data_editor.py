@@ -226,6 +226,14 @@ class DataEditor(QtWidgets.QWidget):
     def view(self):
         return self.ui.tbl_data
 
+    @property
+    def data_hidden(self):
+        return self._hide_data
+
+    @property
+    def lookup_mode(self):
+        return self.ui.cbx_lookup_mode.currentText()
+
 
 if __name__ == '__main__':
     import sys

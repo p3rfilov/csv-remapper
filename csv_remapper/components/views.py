@@ -2,7 +2,7 @@
 from typing import Tuple
 from PySide2 import QtWidgets, QtGui, QtCore
 
-from csv_remapper.components import dialogs
+from csv_remapper.components import dialogs, datatypes
 from csv_remapper.constants import *
 
 # noinspection PyUnreachableCode
@@ -55,10 +55,17 @@ class DragAndDropHeaderView(QtWidgets.QHeaderView):
         source = event.source()  # type: DragAndDropHeaderView
         source_data = tuple(self.decode_mime_mata(event.mimeData()))
         target_data = self.build_mime_data(event)
-        # disallow mapping of Alias Value columns between Output tables
-        if source.parent_type == self.parent_type and ALIAS_FIELD_NAME in (source_data[-1], target_data[-1]):
+        # disallow mapping of Alias Values columns between Output tables in certain contexts:
+        # 1. Mapping values in the Input Template view
+        # 2. Mapping values when not in Regex mode
+        same_type = source.parent_type == self.parent_type
+        is_alias_column = ALIAS_FIELD_NAME in (source_data[-1], target_data[-1])
+        editing_input_template = self.parent.data_hidden or source.parent.data_hidden
+        not_in_regex_mode = datatypes.LookupModes.REGEX not in (self.parent.lookup_mode, source.parent.lookup_mode)
+        if same_type and is_alias_column and (editing_input_template or not_in_regex_mode):
             dialogs.validation_message(
-                'Invalid Mapping', f'{ALIAS_FIELD_NAME} column mapping between {OUTPUT_K} templates is not allowed',
+                'Invalid Mapping',
+                f'"{ALIAS_FIELD_NAME}" column mapping between "{OUTPUT_K}" templates is not allowed in this context',
                 buttons=False
             )
             return
