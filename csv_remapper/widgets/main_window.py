@@ -72,7 +72,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.dir_handler.root:
             paths = [os.path.join(self.dir_handler.root, t) for t in TEMPLATE_TYPES]
             self._root_watcher.addPaths(paths)
-            self._root_watcher.directoryChanged.connect(self._init_app_settings)
+            self._root_watcher.directoryChanged.connect(lambda: self._init_app_settings())
 
     def _populate_template_combo(self):
         self.ui.cbx_template.clear()
