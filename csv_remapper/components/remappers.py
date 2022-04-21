@@ -34,6 +34,7 @@ def remap_csv_file(csv_file, out_template_name, dir_handler):
                 cell_data = row[mapping[SOURCE_COLUMN_K]]
                 if cell_data.strip() and mapping[TARGET_COLUMN_K] in output_data[HEADERS_K]:
                     # only insert data that is present in the output template header
+                    # convert data types if needed
                     output_row[mapping[TARGET_COLUMN_K]] = _convert_value(
                         cell_data,
                         mapping[IN_DATA_K],
