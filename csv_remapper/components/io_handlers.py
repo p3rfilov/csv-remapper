@@ -8,20 +8,16 @@ from csv_remapper.constants import *
 
 
 class FileHandler(object):
-    def __init__(self):
-        pass
-
-    def read(self, the_file):
+    @staticmethod
+    def read(the_file):
         raise NotImplemented
 
-    def write(self, the_file, the_data):
+    @staticmethod
+    def write(the_file, the_data):
         raise NotImplemented
 
 
 class CsvFileHandler(FileHandler):
-    def __init__(self):
-        super(CsvFileHandler, self).__init__()
-
     @staticmethod
     @decorators.exception
     def read(csv_file):  # type: (str) -> dict
@@ -47,9 +43,6 @@ class CsvFileHandler(FileHandler):
 
 
 class JsonFileHandler(FileHandler):
-    def __init__(self):
-        super(JsonFileHandler, self).__init__()
-
     @staticmethod
     @decorators.exception
     def read(the_file):  # type: (str) -> dict
