@@ -11,36 +11,25 @@ from csv_remapper.components import (
 from csv_remapper.constants import *
 
 
-def remap_csv_file(csv_file, output_template, dir_handler):  # type: (str, str, io_handlers.AppDirectoryHandler) -> dict
+def remap_csv_file(csv_file, out_template_name, dir_handler):  # type: (str, str, io_handlers.AppDirectoryHandler) -> dict
     output_data = {}
-    input_data = io_handlers.CsvFileHandler.read(csv_file)
-    in_temp_data = {}
-    alias_data = _get_alias_data(output_template, dir_handler)
-    input_template = None
-    in_temp_files = None
 
-    # cache output template data
-    out_temp_files = dir_handler.get_template_files(output_template, OUTPUT_K)
+    input_csv_data = io_handlers.CsvFileHandler.read(csv_file)
+    alias_data = _get_alias_data(out_template_name, dir_handler)
+    out_temp_files = dir_handler.get_template_files(out_template_name, OUTPUT_K)  # cache output template data
+    input_template_name = _get_input_template_name(csv_file, input_csv_data, out_template_name, dir_handler)
+    in_temp_files = dir_handler.get_template_files(input_template_name, INPUT_K)
 
-    # determine input template
-    all_templates = dir_handler.get_existing_template_names()
-    for name in all_templates[INPUT_K]:
-        in_temp_files = dir_handler.get_template_files(name, INPUT_K)
-        in_temp_data['csv'] = io_handlers.CsvFileHandler.read(in_temp_files[FILE_K])
-        if in_temp_data['csv'][HEADERS_K] == input_data[HEADERS_K]:
-            input_template = name
-            break
-
-    if input_template:
+    if input_template_name:
         # cache template data
-        in_temp_data['json'] = io_handlers.JsonFileHandler.read(in_temp_files[MAPPINGS_K])
+        mapping_data = io_handlers.JsonFileHandler.read(in_temp_files[MAPPINGS_K])
         output_data = io_handlers.CsvFileHandler.read(out_temp_files[FILE_K])
         output_data[DATA_K] = []  # clear output data before populating it
 
-        for row in input_data[DATA_K]:
+        for row in input_csv_data[DATA_K]:
             skip_row = False
             output_row = {key: '' for key in output_data[HEADERS_K]}  # create empty data row
-            for mapping in in_temp_data['json'][MAPPINGS_K]:
+            for mapping in mapping_data[MAPPINGS_K]:
                 if not skip_row:
                     if mapping[SOURCE_COLUMN_K] not in row:
                         raise Exception(f'Invalid Mapping found: {mapping}')
@@ -105,9 +94,39 @@ def remap_csv_file(csv_file, output_template, dir_handler):  # type: (str, str, 
     return output_data
 
 
-def _get_alias_data(output_template, dir_handler):
+def _get_input_template_name(input_csv_file, input_csv_data, out_template_name, dir_handler):
+    # type: (str, dict, str, io_handlers.AppDirectoryHandler) -> str
+    """ Determine the Input template by looking at the input_csv_data header and output_template name """
+    # There are 2 reasons the routine can fail:
+    # 1. Input template for the given file type has not yet been defined
+    # 2. Wrong or invalid Output template name
+
+    all_template_files = {}
+    all_templates = dir_handler.get_existing_template_names()
+
+    for template_name in all_templates[INPUT_K]:  # check if an Input template with a given header exists
+        template_files = dir_handler.get_template_files(template_name, INPUT_K)
+        csv_data = io_handlers.CsvFileHandler.read(template_files[FILE_K])
+        if csv_data[HEADERS_K] == input_csv_data[HEADERS_K]:
+            all_template_files[template_name] = template_files  # cache template_files
+
+    if not all_template_files:
+        raise Exception(
+            f'No Input Template could be found for file "{input_csv_file}".'
+            f'\nPlease create New Input Template for this file type'
+        )
+
+    for template_name, template_files in all_template_files.items():  # check if Output template name is in the mappings
+        mapping_data = io_handlers.JsonFileHandler.read(template_files[MAPPINGS_K])
+        if mapping_data[TARGET_K].split(MAPPING_SEPARATOR)[-1] == out_template_name:
+            return template_name
+    raise Exception(f'Invalid Output Template "{out_template_name}" for file "{input_csv_file}"')
+
+
+def _get_alias_data(output_template, dir_handler):  # type: (str, io_handlers.AppDirectoryHandler) -> dict[str, dict]
+    """ Read all alias data files into a dictionary for a given output template """
     alias_data = {}
-    alias_names = dir_handler.get_alias_value_names(output_template)
+    alias_names = dir_handler.get_alias_data_names(output_template)
     for alias in alias_names:
         alias_files = dir_handler.get_alias_files(output_template, alias)
         alias_data[alias] = {
