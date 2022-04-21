@@ -15,7 +15,7 @@ def exception(func):  # type: (Callable) -> Any
             from PySide2 import QtCore, QtWidgets
             if QtWidgets.QApplication.instance():  # display dialog if Qt app is running
                 exc_type, exc_obj, exc_tb = sys.exc_info()
-                msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical, 'Error', f'{exc_type}\n{exc_obj}')
+                msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical, 'Error', f'{exc_obj}')
                 ok = QtWidgets.QPushButton('Ok')
                 msg.addButton(ok, QtWidgets.QMessageBox.YesRole)
                 msg.setDetailedText(traceback.format_exc())
